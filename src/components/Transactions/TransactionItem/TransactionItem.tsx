@@ -1,4 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+
+//context import
+import { TransactionContext } from "../../../context/TransactionContext"
+
 //style imports
 import {
   ItemContainer,
@@ -16,31 +20,18 @@ interface IProps {
 interface IState {
   path: string
   pair: string
-}
-
-//This will return the right coin image and pair based on the coin
-const returnProperCoinImg = ({ txs }: IProps) => {
-  let returnedCoin = returnCoinType({ txs })
-  if (returnedCoin === "BTC") {
-    return { path: "../../../images/btc_logo.png", pair: "BTC" }
-  }
-  if (returnedCoin === "ETH") {
-    return { path: "../../../images/eth_logo.png", pair: "ETH" }
-  }
-  if (returnedCoin === "FIAT") {
-    return { path: "../../../images/money_logo.png", pair: txs.pair }
-  }
+  formattedAmount?: number
+  fiatAmount?: number
 }
 
 //This function takes the coin amount, and returns the proper value in Sats or Wei
-const formatAmount = ({ txs }: IProps) => {
+const formatAmount = (coinType: string, { txs }: IProps) => {
   const btcAmount = 0.00000001
   const ethAmount = 0.000000001
-  let returnedCoin = returnCoinType({ txs })
-  if (returnedCoin === "BTC") {
-    return txs.amount ? txs.amount / btcAmount : null
+  if (coinType === "BTC") {
+    return txs.amount ? (txs.amount * btcAmount).toFixed(8) : null
   } else {
-    return txs.amount ? txs.amount / ethAmount : null
+    return txs.amount ? (txs.amount / ethAmount).toFixed(8) : null
   }
 }
 
@@ -59,11 +50,44 @@ const returnCoinType = ({ txs }: IProps) => {
 }
 
 const TransactionItem: React.FC<IProps> = ({ txs }) => {
+  const { state } = useContext(TransactionContext)
+  const { prices } = state
   //create a state that holds the image and pair
   const [coin, setCoin] = useState<IState>({
     path: "",
     pair: "",
+    formattedAmount: 0,
+    fiatAmount: 0,
   })
+
+  //This will return the right coin image and pair based on the coin
+  const returnProperCoinImg = ({ txs }: IProps) => {
+    let returnedCoin = returnCoinType({ txs })
+    if (returnedCoin === "BTC") {
+      //I am formatted the amount, and then I use that amount to calculate the fiat value
+      let coinAmount: any = formatAmount("BTC", { txs })
+      let fiatAmount = coinAmount * parseFloat(prices.BTC)
+      return {
+        path: "../../../images/btc_logo.png",
+        pair: "BTC",
+        formattedAmount: coinAmount,
+        fiatAmount,
+      }
+    }
+    if (returnedCoin === "ETH") {
+      let coinAmount: any = formatAmount("ETH", { txs })
+      let fiatAmount = coinAmount * parseFloat(prices.ETH)
+      return {
+        path: "../../../images/eth_logo.png",
+        pair: "ETH",
+        formattedAmount: coinAmount,
+        fiatAmount,
+      }
+    }
+    if (returnedCoin === "FIAT") {
+      return { path: "../../../images/money_logo.png", pair: txs.pair }
+    }
+  }
 
   useEffect(() => {
     //create the coin image and pair
@@ -98,11 +122,12 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
           </div>
           <div className="bottomRow">
             <Item>
-              Amount (Fiat): ${txs.amount ? txs.amount : txs.fiatValue}
+              Amount (Fiat): $
+              {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
             </Item>
             <Item>
               Amount (Crypto):{" "}
-              {txs.amount ? formatAmount({ txs }) : txs.fiatValue}
+              {coin.formattedAmount ? coin.formattedAmount : txs.fiatValue}
             </Item>
             <Item>Type: {txs.type}</Item>
           </div>

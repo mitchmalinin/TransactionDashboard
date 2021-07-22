@@ -22,7 +22,7 @@ export interface EthTxs {
 
 //BTC transaction interface
 export interface BtcTxs {
-  amount: number | undefined
+  amount: number
   blockHeight: number
   coin: string
   description: string
