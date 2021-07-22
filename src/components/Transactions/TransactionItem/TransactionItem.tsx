@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 //Need this for eth conversion
-import Web3 from "web3"
+import convert from "ether-converter"
+
 //context import
 import { TransactionContext } from "../../../context/TransactionContext"
 
@@ -32,8 +33,11 @@ const formatAmount = (coinType: string, { txs }: IProps) => {
   if (coinType === "BTC") {
     return txs.amount ? (txs.amount * btcAmount).toFixed(8) : null
   } else {
-    let amount: any = txs.amount
-    return Number(Web3.utils.fromWei(amount.toString(), "ether")).toFixed(8)
+    //converting the amount to ETH was causing me an extreme amount of pain (dealing with scientific notation), so I had to import eth-converter for the conversion
+
+    return txs.amount
+      ? Number(convert(txs.amount, "wei", "ether")).toFixed(8)
+      : null
   }
 }
 
@@ -79,7 +83,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
     if (returnedCoin === "ETH") {
       let coinAmount: any = formatAmount("ETH", { txs })
       let fiatAmount = coinAmount * parseFloat(prices.ETH)
-      console.log("test", coinAmount)
+      console.log("test000", coinAmount)
       return {
         path: "../../../images/eth_logo.png",
         pair: "ETH",

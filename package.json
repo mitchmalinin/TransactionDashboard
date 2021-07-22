@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.9",
     "axios": "^0.21.1",
     "customize-cra": "^1.0.0",
+    "ether-converter": "0.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
@@ -19,8 +20,7 @@
     "styled-components": "^5.3.0",
     "typescript": "^4.3.5",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2",
-    "web3": "^1.4.0"
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-app-rewired start",
