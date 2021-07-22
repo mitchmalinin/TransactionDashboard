@@ -33,15 +33,6 @@ const BannerDetails = () => {
           />
           <span>${prices ? prices.ETH : "0.00"}</span>
         </PriceContainer>
-        <PriceContainer>
-          <img
-            src="../../images/money_logo.png"
-            alt="coin_img"
-            min-width="30px"
-            height="30px"
-          />
-          <span>$1.00</span>
-        </PriceContainer>
       </div>
       <div className="rightSide">
         <a href="https://www.blockchain.com/prices" target="_blank">

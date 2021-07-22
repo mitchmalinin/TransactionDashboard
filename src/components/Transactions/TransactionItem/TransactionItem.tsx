@@ -29,19 +29,15 @@ interface IState {
 //This function takes the coin amount, and returns the proper value in Sats or Wei
 const formatAmount = (coinType: string, { txs }: IProps) => {
   const btcAmount = 0.00000001
-  const ethAmount = 0.000000001
   if (coinType === "BTC") {
-    return txs.amount ? (txs.amount * btcAmount).toFixed(8) : null
+    return txs.amount ? txs.amount * btcAmount : null
   } else {
     //converting the amount to ETH was causing me an extreme amount of pain (dealing with scientific notation), so I had to import eth-converter for the conversion
-
-    return txs.amount
-      ? Number(convert(txs.amount, "wei", "ether")).toFixed(8)
-      : null
+    return txs.amount ? Number(convert(txs.amount, "wei", "ether")) : null
   }
 }
 
-//this function returns the coin type
+//this function returns the coin type based on object keys
 const returnCoinType = ({ txs }: IProps) => {
   const txsKeys = Object.keys(txs)
   if (txsKeys.includes("coin")) {
@@ -67,12 +63,13 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
   })
 
   //This will return the right coin image and pair based on the coin
-  const returnProperCoinImg = ({ txs }: IProps) => {
+  const returnFormattedCoin = ({ txs }: IProps) => {
     let returnedCoin = returnCoinType({ txs })
     if (returnedCoin === "BTC") {
       //I am formatted the amount, and then I use that amount to calculate the fiat value
       let coinAmount: any = formatAmount("BTC", { txs })
       let fiatAmount = coinAmount * parseFloat(prices.BTC)
+      //I then return a coin object that is used to create the coin state
       return {
         path: "../../../images/btc_logo.png",
         pair: "BTC",
@@ -83,7 +80,6 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
     if (returnedCoin === "ETH") {
       let coinAmount: any = formatAmount("ETH", { txs })
       let fiatAmount = coinAmount * parseFloat(prices.ETH)
-      console.log("test000", coinAmount)
       return {
         path: "../../../images/eth_logo.png",
         pair: "ETH",
@@ -92,7 +88,36 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
       }
     }
     if (returnedCoin === "FIAT") {
-      return { path: "../../../images/money_logo.png", pair: txs.pair }
+      //split the pair and get the crypto value, so the crypto amount can be calculated
+      let cryptoCoinPair: string[] | null = txs.pair
+        ? txs.pair.split("-")
+        : null
+
+      //if the pair is btc than format the crypto amount by / fiat value by the price
+      if (
+        (cryptoCoinPair !== null && cryptoCoinPair[0] === "BTC") ||
+        (cryptoCoinPair !== null && cryptoCoinPair[1] === "BTC")
+      ) {
+        let fiatValue: string | undefined = txs.fiatValue
+        return {
+          path: "../../../images/money_logo.png",
+          pair: txs.pair,
+          //Not sure if this is the right way to do this in typescript, but it seems to not complain
+          formattedAmount:
+            parseFloat(fiatValue != undefined ? fiatValue : "0") /
+            parseFloat(prices.BTC),
+        }
+      } else {
+        //don't need to make another if because if its not BTC then it has to be ETH
+        let fiatValue: string | undefined = txs.fiatValue
+        return {
+          path: "../../../images/money_logo.png",
+          pair: txs.pair,
+          formattedAmount:
+            parseFloat(fiatValue != undefined ? fiatValue : "0") /
+            parseFloat(prices.ETH),
+        }
+      }
     }
   }
 
@@ -100,7 +125,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
     //create the coin image and pair
     //I know you are not supposed to use "any" but this was giving me a lot of trouble, and I did not want to waste more time trying to debug (I am in a time crunch)
     //Still New to typescript but I am progressing fast
-    let formattedCoin: any = returnProperCoinImg({ txs })
+    let formattedCoin: any = returnFormattedCoin({ txs })
     setCoin(formattedCoin)
   }, [])
 
@@ -134,7 +159,9 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
             </Item>
             <Item>
               Amount (Crypto):{" "}
-              {coin.formattedAmount ? coin.formattedAmount : txs.fiatValue}
+              {coin.formattedAmount
+                ? coin.formattedAmount.toFixed(8)
+                : txs.fiatValue}
             </Item>
             <Item>Type: {txs.type}</Item>
           </div>

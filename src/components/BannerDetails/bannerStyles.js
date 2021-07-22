@@ -10,6 +10,7 @@ export const BannerContainer = styled.div`
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
+  padding: 0 2em;
 
   .leftSide {
     display: grid;
