@@ -2,12 +2,12 @@ import { useEffect, useContext } from "react"
 //styled component imports
 import { DashboardContainer, ContentWrapper } from "./transactionStyles"
 //component imports
-import BannerDetails from "../BannerDetails/BannerDetails"
-import TransactionContainer from "../Transactions/TransactionsContainer/TransactionContainer"
+import BannerDetails from "../../BannerDetails/BannerDetails"
+import TransactionContainer from "../TransactionsContainer/TransactionContainer"
 //context import
-import { TransactionContext } from "../../context/TransactionContext"
+import { TransactionContext } from "../../../context/TransactionContext"
 //import the custom axios hook
-import { useAxios } from "../../hooks/useAxios"
+import { useAxios } from "../../../hooks/useAxios"
 
 const TransactionDashboard: React.FC = () => {
   //Grab the context so that it can be updated

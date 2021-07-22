@@ -104,7 +104,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
           pair: txs.pair,
           //Not sure if this is the right way to do this in typescript, but it seems to not complain
           formattedAmount:
-            parseFloat(fiatValue != undefined ? fiatValue : "0") /
+            parseFloat(fiatValue !== undefined ? fiatValue : "0") /
             parseFloat(prices.BTC),
         }
       } else {
@@ -114,7 +114,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
           path: "../../../images/money_logo.png",
           pair: txs.pair,
           formattedAmount:
-            parseFloat(fiatValue != undefined ? fiatValue : "0") /
+            parseFloat(fiatValue !== undefined ? fiatValue : "0") /
             parseFloat(prices.ETH),
         }
       }

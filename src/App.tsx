@@ -2,7 +2,7 @@
 import { TransactionProvider } from "./context/TransactionContext"
 
 //transaction layout import
-import TransactionDashboard from "./components/TransactionLayout/TransactionDashboard"
+import TransactionDashboard from "./components/Transactions/TransactionLayout/TransactionDashboard"
 
 function App() {
   return (

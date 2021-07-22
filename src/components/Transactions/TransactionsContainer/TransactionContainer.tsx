@@ -10,7 +10,7 @@ import { TransactionContext } from "../../../context/TransactionContext"
 //import interfaces from context
 import { BtcTxs, EthTxs, CustodialTxs } from "../../../context/interfaces"
 
-interface IState extends Array<BtcTxs | EthTxs | CustodialTxs> {}
+export interface IState extends Array<BtcTxs | EthTxs | CustodialTxs> {}
 
 const TransactionContainer: React.FC = () => {
   const { state } = useContext(TransactionContext)

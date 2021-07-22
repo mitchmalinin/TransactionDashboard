@@ -1,32 +1,58 @@
-import React from "react"
+import { useState } from "react"
 import { FilterContainer } from "./filterStyles"
-import Dropdown from "react-dropdown"
+import Dropdown, { Option } from "react-dropdown"
+import { txsTypes, txsStatus, coinTypes } from "../../utils/staticData"
 
-const options = [
-  { value: "0", label: "Up Coming", className: "optionSelect" },
-  { value: "1", label: "Live", className: "optionSelect" },
-]
+//import the props interface
+import { IState } from "../Transactions/TransactionsContainer/TransactionContainer"
 
 const Filter = () => {
+  const [filterTags, setFilterTags] = useState({
+    currency: "",
+    type: "",
+    status: "",
+  })
+
+  const filterTransactionArray = (e: Option) => {
+    console.log(e)
+  }
+
   return (
     <FilterContainer>
       <p>Input</p>
-      <Dropdown
-        options={options}
-        className="dropDown"
-        value={options[0].label}
-        controlClassName="control"
-        menuClassName="menu"
-        //   onChange={(e) => changeStatus(e)}
-      />
-      <Dropdown
-        options={options}
-        className="dropDown"
-        value={options[0].label}
-        controlClassName="control"
-        menuClassName="menu"
-        //   onChange={(e) => changeStatus(e)}
-      />
+      <div className="dropDownContainer">
+        <Dropdown
+          options={coinTypes}
+          placeholder="Currency"
+          className="dropDown"
+          controlClassName="control"
+          menuClassName="menu"
+          value={filterTags.currency}
+          onChange={(e) => filterTransactionArray(e)}
+        />{" "}
+      </div>
+      <div className="dropDownContainer">
+        <Dropdown
+          placeholder="Txs Types"
+          options={txsTypes}
+          className="dropDown"
+          controlClassName="control"
+          menuClassName="menu"
+          value={filterTags.type}
+          onChange={(e) => filterTransactionArray(e)}
+        />
+      </div>
+      <div className="dropDownContainer">
+        <Dropdown
+          placeholder="Txs Status"
+          options={txsStatus}
+          className="dropDown"
+          controlClassName="control"
+          menuClassName="menu"
+          value={filterTags.status}
+          onChange={(e) => filterTransactionArray(e)}
+        />
+      </div>
     </FilterContainer>
   )
 }

@@ -35,7 +35,11 @@ const BannerDetails = () => {
         </PriceContainer>
       </div>
       <div className="rightSide">
-        <a href="https://www.blockchain.com/prices" target="_blank">
+        <a
+          href="https://www.blockchain.com/prices"
+          target="_blank"
+          rel="noreferrer"
+        >
           <BTN>More Coin Prices</BTN>
         </a>
       </div>

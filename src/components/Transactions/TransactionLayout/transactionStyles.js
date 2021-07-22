@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { themes } from "../../styles/colorsStyles"
 
 export const DashboardContainer = styled.div`
   min-height: 100vh;
