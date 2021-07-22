@@ -9,7 +9,8 @@ export const themes = {
     sellPrice: "#9d2533",
     btnHover: "#0c6cf2b8;",
     bgColor: "#ffffff",
-    pending: "#0c6cf2",
-    confirmed: "#00b26b",
+    confirmed: "#0c6cf2",
+    finished: "#00b26b",
+    pending: "#fcaf3b",
   },
 }

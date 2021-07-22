@@ -18,7 +18,11 @@ export const Status = styled.div`
   padding: 0.5em 1em;
   border-radius: 5px 5px 0 0;
   background-color: ${({ status }) =>
-    status === "PENDING" ? themes.light.pending : themes.light.confirmed};
+    status === "PENDING"
+      ? themes.light.pending
+      : status === "CONFIRMED"
+      ? themes.light.confirmed
+      : themes.light.finished};
   color: ${themes.light.lightText};
   font-weight: 500;
   display: grid;
