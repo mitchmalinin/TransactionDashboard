@@ -157,8 +157,14 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
         />
         <ItemDetails>
           <div className="col">
-            <Item>From: {txs.from ? txs.from : "N/A"}</Item>
-            <Item>To: {txs.to ? txs.to : "N/A"}</Item>
+            <Item>
+              From:{" "}
+              <span className="address">{txs.from ? txs.from : "N/A"}</span>
+            </Item>
+
+            <Item>
+              To: <span className="address">{txs.to ? txs.to : "N/A"}</span>
+            </Item>
           </div>
           <div className="col">
             <Item>

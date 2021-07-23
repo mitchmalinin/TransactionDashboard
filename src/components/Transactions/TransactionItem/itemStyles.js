@@ -49,7 +49,21 @@ export const Item = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: all 0.2s ease-in;
+  &:hover {
+    overflow: visible;
+    /* width: auto; */
+    background-color: #fff;
+  }
 
+  @media (max-width: 750px) {
+    &:hover {
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      width: 200px;
+    }
+  }
   .fiat {
     color: ${themes.light.buyPrice};
     font-weight: bold;
@@ -58,17 +72,25 @@ export const Item = styled.div`
   .crypto {
     font-weight: bold;
   }
+
+  .address {
+    color: ${themes.light.btnColor};
+  }
 `
 export const ItemDetails = styled.div`
   display: grid;
   gap: 1em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2em;
+  gap: 3em;
 
   .col {
     display: grid;
     gap: 1em;
+  }
+
+  @media (min-width: 1400px) {
+    gap: 6em;
   }
 
   @media (max-width: 750px) {

@@ -36,7 +36,7 @@ const TransactionContainer: React.FC = () => {
     if (optionType === "currency") {
       setUserCurrencyOption(e.value)
       //this makes it easy to populate the array back to normal after all is selected
-      let totalArray = [...btcTxs, ...ethTxs, ...cusTxs]
+      let totalArray = sortArray([...btcTxs, ...ethTxs, ...cusTxs])
       if (e.value !== "ALL") {
         let filtered = totalTxs?.filter((txs) => {
           const txsKeys = Object.keys(txs)
@@ -72,14 +72,22 @@ const TransactionContainer: React.FC = () => {
     }
   }
 
+  //sort the array in order of insertedAt - leave created at the bottom
+  const sortArray = (combinedArray: IState) => {
+    return combinedArray.sort((txs1: any, txs2: any) => {
+      return txs2.insertedAt - txs1.insertedAt
+    })
+  }
+
   useEffect(() => {
     //Create a large array that has all the transactions inside
     //this makes sure that all of the transactions are loaded from context, because on initial load they are all undefined
     //I am adding the TXS as dependencies so that the "totalTxs" state gets updated when all the txs are returned
     if (btcTxs && ethTxs && cusTxs) {
-      setTotalTxs([...btcTxs, ...ethTxs, ...cusTxs])
+      let combinedArray: IState = sortArray([...btcTxs, ...ethTxs, ...cusTxs])
+      setTotalTxs(combinedArray)
       //I also populated the filter array so that content renders
-      setFilteredTxs([...btcTxs, ...ethTxs, ...cusTxs])
+      setFilteredTxs(combinedArray)
     }
   }, [btcTxs, ethTxs, cusTxs])
 
