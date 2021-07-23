@@ -3,12 +3,30 @@ import { themes } from "../../styles/colorsStyles"
 
 export const FilterContainer = styled.div`
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-content: flex-end;
   gap: 3em;
   padding: 0 2em;
 
+  @media (max-width: 750px) {
+    padding: 0;
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+
+    padding-top: 2em;
+    border-top: 2px solid ${themes.light.fadedDivider};
+  }
+
+  .dropDownOptions {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 1em;
+    @media (max-width: 750px) {
+      gap: 0.7em;
+    }
+  }
   .dropDownContainer {
     position: relative;
   }

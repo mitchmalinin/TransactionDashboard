@@ -13,5 +13,6 @@ export const themes = {
     finished: "#00b26b",
     pending: "#fcaf3b",
     lightBorder: "#a9a9a9",
+    fadedDivider: "#a9a9a947",
   },
 }

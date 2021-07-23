@@ -89,7 +89,6 @@ const TransactionContainer: React.FC = () => {
       //This is a really simple way to parse the whole object
       //For time constraint it seems to work for this!
       let parseTxs = JSON.stringify(txs)
-      console.log("text", parseTxs)
       if (parseTxs.toLowerCase().includes(userFilterText.toLowerCase())) {
         return txs
       }

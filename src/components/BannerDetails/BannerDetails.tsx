@@ -15,24 +15,26 @@ const BannerDetails = () => {
     <BannerContainer>
       <div className="leftSide">
         <Title>Transaction Dashboard</Title>
-        <PriceContainer>
-          <img
-            src="../../images/btc_logo.png"
-            alt="coin_img"
-            min-width="30px"
-            height="30px"
-          />
-          <span>${prices ? prices.BTC : "0.00"}</span>
-        </PriceContainer>
-        <PriceContainer>
-          <img
-            src="../../images/eth_logo.png"
-            alt="coin_img"
-            min-width="30px"
-            height="30px"
-          />
-          <span>${prices ? prices.ETH : "0.00"}</span>
-        </PriceContainer>
+        <div className="allPricesContainer">
+          <PriceContainer>
+            <img
+              src="../../images/btc_logo.png"
+              alt="coin_img"
+              min-width="30px"
+              height="30px"
+            />
+            <span>${prices ? prices.BTC : "0.00"}</span>
+          </PriceContainer>
+          <PriceContainer>
+            <img
+              src="../../images/eth_logo.png"
+              alt="coin_img"
+              min-width="30px"
+              height="30px"
+            />
+            <span>${prices ? prices.ETH : "0.00"}</span>
+          </PriceContainer>{" "}
+        </div>
       </div>
       <div className="rightSide">
         <a
