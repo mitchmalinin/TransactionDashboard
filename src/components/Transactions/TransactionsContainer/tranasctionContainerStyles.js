@@ -13,4 +13,8 @@ export const TxsContentContainer = styled.div`
   padding: 0 2em;
   display: grid;
   gap: 1em;
+
+  @media (max-width: 750px) {
+    padding: 0 1em;
+  }
 `

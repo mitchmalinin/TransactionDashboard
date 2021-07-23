@@ -146,20 +146,23 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
             loading="lazy"
           />
           <ItemDetails>
-            <div className="topRow">
+            <div className="col">
               <Item>From: {txs.from ? txs.from : "N/A"}</Item>
               <Item>To: {txs.to ? txs.to : "N/A"}</Item>
+            </div>
+            <div className="col">
               <Item>
                 {txs.createdAt
                   ? "Created At: " + txs.createdAt
                   : "Inserted At: " + txs.insertedAt}
               </Item>
-            </div>
-            <div className="bottomRow">
+
               <Item>
                 Amount (Fiat): $
                 {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
               </Item>
+            </div>
+            <div className="col">
               <Item>
                 Amount (Crypto):{" "}
                 {coin.formattedAmount

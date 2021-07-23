@@ -12,6 +12,10 @@ export const ItemContainer = styled.div`
   &:hover {
     transform: scale(1.01);
   }
+
+  @media (max-width: 750px) {
+    gap: 0em;
+  }
 `
 
 export const Status = styled.div`
@@ -49,14 +53,25 @@ export const Item = styled.div`
 export const ItemDetails = styled.div`
   display: grid;
   gap: 1em;
-  .topRow,
-  .bottomRow {
-    display: grid;
-    grid-template-columns: minmax(150px, 1.33fr) minmax(150px, 2.33fr) minmax(
-        150px,
-        1.33fr
-      );
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2em;
 
-    gap: 4em;
+  .col {
+    display: grid;
+    gap: 1em;
+  }
+
+  @media (max-width: 750px) {
+    grid-template-columns: 1fr;
+    gap: 1em;
+
+    .col {
+      &:nth-child(1),
+      &:nth-child(2) {
+        border-bottom: 1.5px solid ${themes.light.fadedDivider};
+        padding-bottom: 1em;
+      }
+    }
   }
 `
