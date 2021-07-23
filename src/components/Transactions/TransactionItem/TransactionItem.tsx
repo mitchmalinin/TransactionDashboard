@@ -154,7 +154,6 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
           alt="coin_logo"
           min-width="20px"
           height="35px"
-          loading="lazy"
         />
         <ItemDetails>
           <div className="col">

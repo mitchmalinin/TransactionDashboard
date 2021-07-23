@@ -111,8 +111,8 @@ const TransactionContainer: React.FC = () => {
           filteredTxs ? (
             filteredTxs.map((txs) => {
               return (
-                <LazyLoad height={100} overflow>
-                  <TransactionItem txs={txs} key={uuidv4()} />
+                <LazyLoad height={100} offset={100} overflow key={uuidv4()}>
+                  <TransactionItem txs={txs} />
                 </LazyLoad>
               )
             })

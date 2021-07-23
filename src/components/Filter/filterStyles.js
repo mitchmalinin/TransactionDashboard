@@ -29,6 +29,12 @@ export const FilterContainer = styled.div`
   }
   .dropDownContainer {
     position: relative;
+    transition: all 0.1s ease-in;
+    border-radius: 5px;
+    &:hover {
+      transform: scale(1.02);
+      background-color: ${themes.light.btnHover};
+    }
   }
 
   .control {
