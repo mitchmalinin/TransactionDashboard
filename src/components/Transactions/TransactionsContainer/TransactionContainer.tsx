@@ -18,23 +18,57 @@ const TransactionContainer: React.FC = () => {
   const { btcTxs, ethTxs, cusTxs } = state
 
   //Create a large array that holds all of the states
-  const [totalTxs, setTotalTxs] = useState<IState | null>(null)
-
+  const [totalTxs, setTotalTxs] = useState<IState | null | undefined>(null)
+  //Creating a filter array state so that you don't mutate the OG state
+  const [filteredTxs, setFilteredTxs] = useState<IState | null | undefined>(
+    null
+  )
   //create a state that stores the users filtered tabs
-  const [filterState, setFilterState] = useState({
-    type: "",
-    status: "",
-    currency: "",
-  })
+  const [userCurrencyOption, setUserCurrencyOption] = useState("ALL")
+  const [userStatusOption, setUserStatusOption] = useState("ALL")
+  const [userTypeOption, setUserTypeOption] = useState("ALL")
   //TODO: fix the any
 
   //I am passing the type from the options so that I know what part of the state to update
-  const filterTransactionArray = (e: any, type: string) => {
-    console.log(e)
-    setFilterState({
-      ...filterState,
-      type: e.value,
-    })
+
+  const filterTransactionArray = (e: any, optionType: string) => {
+    if (optionType === "currency") {
+      setUserCurrencyOption(e.value)
+      //this makes it easy to populate the array back to normal after all is selected
+      let totalArray = [...btcTxs, ...ethTxs, ...cusTxs]
+      if (e.value !== "ALL") {
+        let filtered = totalTxs?.filter((txs) => {
+          const txsKeys = Object.keys(txs)
+          if (txsKeys.includes("coin") && e.value === "BTC") {
+            return txs
+          }
+          if (txsKeys.includes("erc20") && e.value === "ETH") {
+            return txs
+          }
+          if (txsKeys.includes("fiatCurrency") && e.value === "FIAT") {
+            return txs
+          }
+        })
+        setFilteredTxs(filtered)
+      } else {
+        setFilteredTxs(totalArray)
+      }
+    }
+    if (optionType === "type") {
+      setUserTypeOption(e.value)
+      let filtered = totalTxs?.filter((txs) => {
+        return e.value === "ALL" ? txs : txs.type === e.value
+      })
+      setFilteredTxs(filtered)
+    }
+    if (optionType === "status") {
+      setUserStatusOption(e.value)
+
+      let filtered = totalTxs?.filter((txs) => {
+        return e.value === "ALL" ? txs : txs.state === e.value
+      })
+      setFilteredTxs(filtered)
+    }
   }
 
   useEffect(() => {
@@ -43,6 +77,8 @@ const TransactionContainer: React.FC = () => {
     //I am adding the TXS as dependencies so that the "totalTxs" state gets updated when all the txs are returned
     if (btcTxs && ethTxs && cusTxs) {
       setTotalTxs([...btcTxs, ...ethTxs, ...cusTxs])
+      //I also populated the filter array so that content renders
+      setFilteredTxs([...btcTxs, ...ethTxs, ...cusTxs])
     }
   }, [btcTxs, ethTxs, cusTxs])
   return (
@@ -52,8 +88,8 @@ const TransactionContainer: React.FC = () => {
         {
           //its better to check for the txs this way, because if you check with the  totalTxs.length && it could return "0"
           //Also I used a unique id package, because you are not supposed to use the index as the key
-          totalTxs ? (
-            totalTxs.map((txs) => {
+          filteredTxs ? (
+            filteredTxs.map((txs) => {
               return <TransactionItem txs={txs} key={uuidv4()} />
             })
           ) : (

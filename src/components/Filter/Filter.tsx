@@ -4,7 +4,7 @@ import Dropdown, { Option } from "react-dropdown"
 import { txsTypes, txsStatus, coinTypes } from "../../utils/staticData"
 
 interface IProps {
-  filterTransactionArray: (e: Option, type: string) => void
+  filterTransactionArray: (e: Option, optionType: string) => void
 }
 
 const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
@@ -18,7 +18,7 @@ const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          onChange={(e) => filterTransactionArray(e, "type")}
+          onChange={(e) => filterTransactionArray(e, "currency")}
         />{" "}
       </div>
       <div className="dropDownContainer">
@@ -28,7 +28,7 @@ const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          onChange={(e) => filterTransactionArray(e, "status")}
+          onChange={(e) => filterTransactionArray(e, "type")}
         />
       </div>
       <div className="dropDownContainer">
@@ -38,7 +38,7 @@ const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          onChange={(e) => filterTransactionArray(e, "currency")}
+          onChange={(e) => filterTransactionArray(e, "status")}
         />
       </div>
     </FilterContainer>

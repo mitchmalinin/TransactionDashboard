@@ -10,11 +10,12 @@ export const txsStatus = [
   { value: "ALL", label: "All", className: "optionSelect" },
   { value: "PENDING", label: "Pending", className: "optionSelect" },
   { value: "CONFIRMED", label: "Confirmed", className: "optionSelect" },
+  { value: "FINISHED", label: "Finished", className: "optionSelect" },
 ]
 
 export const coinTypes = [
-  { value: "0", label: "All", className: "optionSelect" },
-  { value: "1", label: "Btc", className: "optionSelect" },
-  { value: "2", label: "Eth", className: "optionSelect" },
-  { value: "3", label: "Fiat", className: "optionSelect" },
+  { value: "ALL", label: "All", className: "optionSelect" },
+  { value: "BTC", label: "Btc", className: "optionSelect" },
+  { value: "ETH", label: "Eth", className: "optionSelect" },
+  { value: "FIAT", label: "Fiat", className: "optionSelect" },
 ]
