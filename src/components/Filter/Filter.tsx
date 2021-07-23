@@ -3,20 +3,11 @@ import { FilterContainer } from "./filterStyles"
 import Dropdown, { Option } from "react-dropdown"
 import { txsTypes, txsStatus, coinTypes } from "../../utils/staticData"
 
-//import the props interface
-import { IState } from "../Transactions/TransactionsContainer/TransactionContainer"
+interface IProps {
+  filterTransactionArray: (e: Option, type: string) => void
+}
 
-const Filter = () => {
-  const [filterTags, setFilterTags] = useState({
-    currency: "",
-    type: "",
-    status: "",
-  })
-
-  const filterTransactionArray = (e: Option) => {
-    console.log(e)
-  }
-
+const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
   return (
     <FilterContainer>
       <p>Input</p>
@@ -27,8 +18,7 @@ const Filter = () => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          value={filterTags.currency}
-          onChange={(e) => filterTransactionArray(e)}
+          onChange={(e) => filterTransactionArray(e, "type")}
         />{" "}
       </div>
       <div className="dropDownContainer">
@@ -38,8 +28,7 @@ const Filter = () => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          value={filterTags.type}
-          onChange={(e) => filterTransactionArray(e)}
+          onChange={(e) => filterTransactionArray(e, "status")}
         />
       </div>
       <div className="dropDownContainer">
@@ -49,8 +38,7 @@ const Filter = () => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          value={filterTags.status}
-          onChange={(e) => filterTransactionArray(e)}
+          onChange={(e) => filterTransactionArray(e, "currency")}
         />
       </div>
     </FilterContainer>

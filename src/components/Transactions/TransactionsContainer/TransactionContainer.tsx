@@ -20,7 +20,22 @@ const TransactionContainer: React.FC = () => {
   //Create a large array that holds all of the states
   const [totalTxs, setTotalTxs] = useState<IState | null>(null)
 
-  //TODO: make a sort function
+  //create a state that stores the users filtered tabs
+  const [filterState, setFilterState] = useState({
+    type: "",
+    status: "",
+    currency: "",
+  })
+  //TODO: fix the any
+
+  //I am passing the type from the options so that I know what part of the state to update
+  const filterTransactionArray = (e: any, type: string) => {
+    console.log(e)
+    setFilterState({
+      ...filterState,
+      type: e.value,
+    })
+  }
 
   useEffect(() => {
     //Create a large array that has all the transactions inside
@@ -32,7 +47,7 @@ const TransactionContainer: React.FC = () => {
   }, [btcTxs, ethTxs, cusTxs])
   return (
     <Container>
-      <Filter />
+      <Filter filterTransactionArray={filterTransactionArray} />
       <TxsContentContainer>
         {
           //its better to check for the txs this way, because if you check with the  totalTxs.length && it could return "0"
