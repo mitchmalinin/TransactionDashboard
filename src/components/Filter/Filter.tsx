@@ -1,16 +1,30 @@
 import { useState } from "react"
-import { FilterContainer } from "./filterStyles"
+import { FilterContainer, StyledInput } from "./filterStyles"
 import Dropdown, { Option } from "react-dropdown"
 import { txsTypes, txsStatus, coinTypes } from "../../utils/staticData"
 
 interface IProps {
-  filterTransactionArray: (e: Option, optionType: string) => void
+  filterTransactionArrayFromTabs: (e: Option, optionType: string) => void
+  setUserFilterText: React.Dispatch<React.SetStateAction<string>>
+  userFilterText: string
 }
 
-const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
+const Filter: React.FC<IProps> = ({
+  filterTransactionArrayFromTabs,
+  userFilterText,
+  setUserFilterText,
+}) => {
+  //On Change function typescript way
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserFilterText(e.target.value)
+  }
   return (
     <FilterContainer>
-      <p>Input</p>
+      <StyledInput
+        placeholder="Search your transaction, address, or block"
+        value={userFilterText}
+        onChange={onChange}
+      />
       <div className="dropDownContainer">
         <Dropdown
           options={coinTypes}
@@ -18,7 +32,7 @@ const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          onChange={(e) => filterTransactionArray(e, "currency")}
+          onChange={(e) => filterTransactionArrayFromTabs(e, "currency")}
         />{" "}
       </div>
       <div className="dropDownContainer">
@@ -28,7 +42,7 @@ const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          onChange={(e) => filterTransactionArray(e, "type")}
+          onChange={(e) => filterTransactionArrayFromTabs(e, "type")}
         />
       </div>
       <div className="dropDownContainer">
@@ -38,7 +52,7 @@ const Filter: React.FC<IProps> = ({ filterTransactionArray }) => {
           className="dropDown"
           controlClassName="control"
           menuClassName="menu"
-          onChange={(e) => filterTransactionArray(e, "status")}
+          onChange={(e) => filterTransactionArrayFromTabs(e, "status")}
         />
       </div>
     </FilterContainer>

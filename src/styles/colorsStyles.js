@@ -12,5 +12,6 @@ export const themes = {
     confirmed: "#0c6cf2",
     finished: "#00b26b",
     pending: "#fcaf3b",
+    lightBorder: "#a9a9a9",
   },
 }

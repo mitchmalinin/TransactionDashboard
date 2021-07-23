@@ -21,6 +21,7 @@ export const FilterContainer = styled.div`
     border-radius: 5px;
     padding: 0.5em 1em;
     cursor: pointer;
+    text-align: center;
   }
 
   .menu {
@@ -50,5 +51,16 @@ export const FilterContainer = styled.div`
   .optionSelect.is-selected {
     background-color: ${themes.light.btnColor};
     color: ${themes.light.lightText};
+  }
+`
+
+export const StyledInput = styled.input`
+  font-size: 16px;
+  padding: 0.5em 0.7em;
+  border: 1.5px solid ${themes.light.lightBorder};
+  border-radius: 5px;
+  outline: none;
+  &:focus {
+    border: 1.5px solid ${themes.light.btnColor};
   }
 `

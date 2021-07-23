@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { Container, TxsContentContainer } from "./tranasctionContainerStyles"
+
 //import for creating unique ids
 import { v4 as uuidv4 } from "uuid"
 //component import
@@ -27,11 +28,11 @@ const TransactionContainer: React.FC = () => {
   const [userCurrencyOption, setUserCurrencyOption] = useState("ALL")
   const [userStatusOption, setUserStatusOption] = useState("ALL")
   const [userTypeOption, setUserTypeOption] = useState("ALL")
+  const [userFilterText, setUserFilterText] = useState("")
+
   //TODO: fix the any
-
   //I am passing the type from the options so that I know what part of the state to update
-
-  const filterTransactionArray = (e: any, optionType: string) => {
+  const filterTransactionArrayFromTabs = (e: any, optionType: string) => {
     if (optionType === "currency") {
       setUserCurrencyOption(e.value)
       //this makes it easy to populate the array back to normal after all is selected
@@ -81,9 +82,29 @@ const TransactionContainer: React.FC = () => {
       setFilteredTxs([...btcTxs, ...ethTxs, ...cusTxs])
     }
   }, [btcTxs, ethTxs, cusTxs])
+
+  //I am using this useEffect to filter out array based on the user input
+  useEffect(() => {
+    let filtered = totalTxs?.filter((txs) => {
+      //This is a really simple way to parse the whole object
+      //For time constraint it seems to work for this!
+      let parseTxs = JSON.stringify(txs)
+      console.log("text", parseTxs)
+      if (parseTxs.toLowerCase().includes(userFilterText.toLowerCase())) {
+        return txs
+      }
+    })
+
+    setFilteredTxs(filtered)
+  }, [userFilterText])
+
   return (
     <Container>
-      <Filter filterTransactionArray={filterTransactionArray} />
+      <Filter
+        filterTransactionArrayFromTabs={filterTransactionArrayFromTabs}
+        userFilterText={userFilterText}
+        setUserFilterText={setUserFilterText}
+      />
       <TxsContentContainer>
         {
           //its better to check for the txs this way, because if you check with the  totalTxs.length && it could return "0"

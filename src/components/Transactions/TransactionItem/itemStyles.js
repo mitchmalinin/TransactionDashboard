@@ -57,6 +57,6 @@ export const ItemDetails = styled.div`
         1.33fr
       );
 
-    gap: 7em;
+    gap: 4em;
   }
 `

@@ -6,7 +6,7 @@ export interface EthTxs {
   amount: number
   blockHeight: string
   data?: null | string
-  description: string
+  description?: string
   erc20: boolean
   from: string
   hash: string
@@ -25,7 +25,7 @@ export interface BtcTxs {
   amount: number
   blockHeight: number
   coin: string
-  description: string
+  description?: string
   double_spend: boolean
   from: string
   fromWatchOnly: boolean

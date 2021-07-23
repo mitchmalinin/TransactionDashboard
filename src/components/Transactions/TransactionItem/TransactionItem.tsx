@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import LazyLoad from "react-lazyload"
 //Need this for eth conversion
 import convert from "ether-converter"
 
@@ -130,44 +131,47 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
   }, [])
 
   return (
-    <ItemContainer>
-      <Status status={txs.state}>
-        <span>{coin.pair !== "" ? coin.pair : ""}</span> -
-        <span>{txs.state}</span>
-      </Status>
-      <ItemContent>
-        <img
-          src={coin.path !== "" ? coin.path : undefined}
-          alt="coin_logo"
-          min-width="20px"
-          height="35px"
-        />
-        <ItemDetails>
-          <div className="topRow">
-            <Item>From: {txs.from ? txs.from : "N/A"}</Item>
-            <Item>To: {txs.to ? txs.to : "N/A"}</Item>
-            <Item>
-              {txs.createdAt
-                ? "Created At: " + txs.createdAt
-                : "Inserted At: " + txs.insertedAt}
-            </Item>
-          </div>
-          <div className="bottomRow">
-            <Item>
-              Amount (Fiat): $
-              {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
-            </Item>
-            <Item>
-              Amount (Crypto):{" "}
-              {coin.formattedAmount
-                ? coin.formattedAmount.toFixed(8)
-                : txs.fiatValue}
-            </Item>
-            <Item>Type: {txs.type}</Item>
-          </div>
-        </ItemDetails>
-      </ItemContent>
-    </ItemContainer>
+    <LazyLoad>
+      <ItemContainer>
+        <Status status={txs.state}>
+          <span>{coin.pair !== "" ? coin.pair : ""}</span> -
+          <span>{txs.state}</span>
+        </Status>
+        <ItemContent>
+          <img
+            src={coin.path !== "" ? coin.path : undefined}
+            alt="coin_logo"
+            min-width="20px"
+            height="35px"
+            loading="lazy"
+          />
+          <ItemDetails>
+            <div className="topRow">
+              <Item>From: {txs.from ? txs.from : "N/A"}</Item>
+              <Item>To: {txs.to ? txs.to : "N/A"}</Item>
+              <Item>
+                {txs.createdAt
+                  ? "Created At: " + txs.createdAt
+                  : "Inserted At: " + txs.insertedAt}
+              </Item>
+            </div>
+            <div className="bottomRow">
+              <Item>
+                Amount (Fiat): $
+                {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
+              </Item>
+              <Item>
+                Amount (Crypto):{" "}
+                {coin.formattedAmount
+                  ? coin.formattedAmount.toFixed(8)
+                  : txs.fiatValue}
+              </Item>
+              <Item>Type: {txs.type}</Item>
+            </div>
+          </ItemDetails>
+        </ItemContent>
+      </ItemContainer>
+    </LazyLoad>
   )
 }
 

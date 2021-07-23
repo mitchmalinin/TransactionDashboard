@@ -8,6 +8,7 @@ export const Container = styled.div`
 
 export const TxsContentContainer = styled.div`
   max-height: 70vh;
+  min-height: 300px;
   overflow: scroll;
   padding: 0 2em;
   display: grid;
