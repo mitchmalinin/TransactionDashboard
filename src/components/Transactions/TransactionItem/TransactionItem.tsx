@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import LazyLoad from "react-lazyload"
+import moment from "moment"
 //Need this for eth conversion
 import convert from "ether-converter"
 
@@ -122,6 +123,18 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
     }
   }
 
+  //This converts the fiat created at date to a more readable date format
+  const formatDate = (dateTime: string) => {
+    //I am splitting the date time string based on the T
+    //Then I format the date in a more readable format
+    let date = dateTime.split("T")[0].split("-").join("")
+    //Here I format the time in a more readable format
+    let time = dateTime.split("T")[1].split(".")[0]
+    let formattedDate = moment(date, "YYYYMMDD").format("MMM Do")
+    let formatTime = moment(time, "HH:mm:ss").format("hh:mm a")
+    return `${formattedDate}, ${formatTime}`
+  }
+
   useEffect(() => {
     //create the coin image and pair
     //I know you are not supposed to use "any" but this was giving me a lot of trouble, and I did not want to waste more time trying to debug (I am in a time crunch)
@@ -152,22 +165,26 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
             </div>
             <div className="col">
               <Item>
-                {txs.createdAt
-                  ? "Created At: " + txs.createdAt
-                  : "Inserted At: " + txs.insertedAt}
+                Amount (Crypto):{" "}
+                <span className="crypto">
+                  {coin.formattedAmount
+                    ? coin.formattedAmount.toFixed(8)
+                    : txs.fiatValue}
+                </span>
               </Item>
-
               <Item>
-                Amount (Fiat): $
-                {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
+                Amount (Fiat):
+                <span className="fiat">
+                  $
+                  {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
+                </span>
               </Item>
             </div>
             <div className="col">
               <Item>
-                Amount (Crypto):{" "}
-                {coin.formattedAmount
-                  ? coin.formattedAmount.toFixed(8)
-                  : txs.fiatValue}
+                {txs.createdAt
+                  ? "Created At: " + formatDate(txs.createdAt)
+                  : "Inserted At: " + txs.insertedAt}
               </Item>
               <Item>Type: {txs.type}</Item>
             </div>

@@ -49,6 +49,15 @@ export const Item = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  .fiat {
+    color: ${themes.light.buyPrice};
+    font-weight: bold;
+  }
+
+  .crypto {
+    font-weight: bold;
+  }
 `
 export const ItemDetails = styled.div`
   display: grid;
