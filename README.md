@@ -1,6 +1,6 @@
 # Setup
 
-- I use a .env file to load in the API endpoint. It is stored to http://localhost:8888/, so if the server is not on that port it needs to be changed.
+- I use an .env file to load in the API endpoint. It is stored to http://localhost:8888/, so if the server is not on that port it needs to be changed.
 - Class diagrams created in Figma: https://www.figma.com/file/gCIVWOz0lJMRbRH42yW0ff/Untitled?node-id=0%3A1
 
 # Project Decisions
@@ -23,7 +23,7 @@
 
 4. Features
 
-- I had to get the basic requirements down, before I chose to do anything else
+- I had to get the basic requirements down, before I chose to do anything else.
 - One feature that I really wanted to do, but I kept running into issues was to have the filter tab work for all three simultaneously.
 - ex: User selects Btc that are Sent and Confirmed
 - That feature was taking me an extreme amount of time to figure out, and I just had to move on to finish other more important tasks.
@@ -53,10 +53,10 @@
 4. Bugs
 
 - There are small bugs here and there that I really wanted to fix.
-- Unfortunately, I can tend to get hungup on them, which is something I could not do for this project
+- Unfortunately, I can tend to get hungup on them, which is something I could not do for this project.
 - They are still bugging me now, and I dream in my sleep about fixing them.
 
 5. Optimization
 
 - I could have made mobile and web image files.
-- Of course, there is the webpack config that is able to minify css/js and tree shake
+- Of course, there is the webpack config that is able to minify css/js and tree shake.
