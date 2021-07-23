@@ -18,7 +18,7 @@ const BannerDetails = () => {
         <div className="allPricesContainer">
           <PriceContainer>
             <img
-              src="../../images/btc_logo.png"
+              src="../../images/btc_logo.jpg"
               alt="coin_img"
               min-width="30px"
               height="30px"
@@ -27,7 +27,7 @@ const BannerDetails = () => {
           </PriceContainer>
           <PriceContainer>
             <img
-              src="../../images/eth_logo.png"
+              src="../../images/eth_logo.jpg"
               alt="coin_img"
               min-width="30px"
               height="30px"

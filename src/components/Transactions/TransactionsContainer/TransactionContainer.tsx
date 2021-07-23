@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { Container, TxsContentContainer } from "./tranasctionContainerStyles"
-
+import LazyLoad from "react-lazyload"
 //import for creating unique ids
 import { v4 as uuidv4 } from "uuid"
 //component import
@@ -110,7 +110,11 @@ const TransactionContainer: React.FC = () => {
           //Also I used a unique id package, because you are not supposed to use the index as the key
           filteredTxs ? (
             filteredTxs.map((txs) => {
-              return <TransactionItem txs={txs} key={uuidv4()} />
+              return (
+                <LazyLoad height={100} overflow>
+                  <TransactionItem txs={txs} key={uuidv4()} />
+                </LazyLoad>
+              )
             })
           ) : (
             <p>Loading...</p>

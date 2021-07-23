@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react"
-import LazyLoad from "react-lazyload"
 import moment from "moment"
 //Need this for eth conversion
 import convert from "ether-converter"
@@ -73,7 +72,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
       let fiatAmount = coinAmount * parseFloat(prices.BTC)
       //I then return a coin object that is used to create the coin state
       return {
-        path: "../../../images/btc_logo.png",
+        path: "../../../images/btc_logo.jpg",
         pair: "BTC",
         formattedAmount: coinAmount,
         fiatAmount,
@@ -83,7 +82,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
       let coinAmount: any = formatAmount("ETH", { txs })
       let fiatAmount = coinAmount * parseFloat(prices.ETH)
       return {
-        path: "../../../images/eth_logo.png",
+        path: "../../../images/eth_logo.jpg",
         pair: "ETH",
         formattedAmount: coinAmount,
         fiatAmount,
@@ -102,7 +101,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
       ) {
         let fiatValue: string | undefined = txs.fiatValue
         return {
-          path: "../../../images/money_logo.png",
+          path: "../../../images/money_logo.jpg",
           pair: txs.pair,
           //Not sure if this is the right way to do this in typescript, but it seems to not complain
           formattedAmount:
@@ -113,7 +112,7 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
         //don't need to make another if because if its not BTC then it has to be ETH
         let fiatValue: string | undefined = txs.fiatValue
         return {
-          path: "../../../images/money_logo.png",
+          path: "../../../images/money_logo.jpg",
           pair: txs.pair,
           formattedAmount:
             parseFloat(fiatValue !== undefined ? fiatValue : "0") /
@@ -144,54 +143,51 @@ const TransactionItem: React.FC<IProps> = ({ txs }) => {
   }, [])
 
   return (
-    <LazyLoad>
-      <ItemContainer>
-        <Status status={txs.state}>
-          <span>{coin.pair !== "" ? coin.pair : ""}</span> -
-          <span>{txs.state}</span>
-        </Status>
-        <ItemContent>
-          <img
-            src={coin.path !== "" ? coin.path : undefined}
-            alt="coin_logo"
-            min-width="20px"
-            height="35px"
-            loading="lazy"
-          />
-          <ItemDetails>
-            <div className="col">
-              <Item>From: {txs.from ? txs.from : "N/A"}</Item>
-              <Item>To: {txs.to ? txs.to : "N/A"}</Item>
-            </div>
-            <div className="col">
-              <Item>
-                Amount (Crypto):{" "}
-                <span className="crypto">
-                  {coin.formattedAmount
-                    ? coin.formattedAmount.toFixed(8)
-                    : txs.fiatValue}
-                </span>
-              </Item>
-              <Item>
-                Amount (Fiat):
-                <span className="fiat">
-                  $
-                  {coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
-                </span>
-              </Item>
-            </div>
-            <div className="col">
-              <Item>
-                {txs.createdAt
-                  ? "Created At: " + formatDate(txs.createdAt)
-                  : "Inserted At: " + txs.insertedAt}
-              </Item>
-              <Item>Type: {txs.type}</Item>
-            </div>
-          </ItemDetails>
-        </ItemContent>
-      </ItemContainer>
-    </LazyLoad>
+    <ItemContainer>
+      <Status status={txs.state}>
+        <span>{coin.pair !== "" ? coin.pair : ""}</span> -
+        <span>{txs.state}</span>
+      </Status>
+      <ItemContent>
+        <img
+          src={coin.path !== "" ? coin.path : undefined}
+          alt="coin_logo"
+          min-width="20px"
+          height="35px"
+          loading="lazy"
+        />
+        <ItemDetails>
+          <div className="col">
+            <Item>From: {txs.from ? txs.from : "N/A"}</Item>
+            <Item>To: {txs.to ? txs.to : "N/A"}</Item>
+          </div>
+          <div className="col">
+            <Item>
+              Amount (Crypto):{" "}
+              <span className="crypto">
+                {coin.formattedAmount
+                  ? coin.formattedAmount.toFixed(8)
+                  : txs.fiatValue}
+              </span>
+            </Item>
+            <Item>
+              Amount (Fiat):
+              <span className="fiat">
+                ${coin.fiatAmount ? coin.fiatAmount.toFixed(2) : txs.fiatValue}
+              </span>
+            </Item>
+          </div>
+          <div className="col">
+            <Item>
+              {txs.createdAt
+                ? "Created At: " + formatDate(txs.createdAt)
+                : "Inserted At: " + txs.insertedAt}
+            </Item>
+            <Item>Type: {txs.type}</Item>
+          </div>
+        </ItemDetails>
+      </ItemContent>
+    </ItemContainer>
   )
 }
 
