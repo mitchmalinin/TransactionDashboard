@@ -25,6 +25,7 @@ const TransactionContainer: React.FC = () => {
     null
   )
   //create a state that stores the users filtered tabs
+  //I know the state is not being used, but it would be needed for the multi filter func ex: BTC -> Sent -> Pending
   const [userCurrencyOption, setUserCurrencyOption] = useState("ALL")
   const [userStatusOption, setUserStatusOption] = useState("ALL")
   const [userTypeOption, setUserTypeOption] = useState("ALL")
@@ -64,7 +65,6 @@ const TransactionContainer: React.FC = () => {
     }
     if (optionType === "status") {
       setUserStatusOption(e.value)
-
       let filtered = totalTxs?.filter((txs) => {
         return e.value === "ALL" ? txs : txs.state === e.value
       })
